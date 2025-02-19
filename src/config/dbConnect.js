@@ -12,7 +12,7 @@ const dbConnect = async () => {
     console.error('Connected to Mongo DB 👍');
   });
 
-  await mongoose.connect('mongodb://localhost:27017/node-mono');
+  await mongoose.connect('mongodb://localhost:27017/node-mongo');
 };
 
 export default dbConnect;

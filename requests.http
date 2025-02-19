@@ -1,0 +1,11 @@
+// test api
+GET http://localhost:5000/
+
+###
+
+POST http://localhost:5000/api/v1/todo
+Content-Type: application/json
+
+{
+    "record": "test3"
+}

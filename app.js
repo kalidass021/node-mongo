@@ -1,11 +1,29 @@
 import express from 'express';
 import dbConnect from './src/config/dbConnect.js';
+import Todo from './src/models/Todo.js';
 
 const app = express();
+
+// body parser
+app.use(express.json());
 
 app.get('/', (req, res) => {
   console.log('api is working');
   res.status(200).json({ message: 'API is working' });
+});
+
+app.post('/api/v1/todo', async (req, res) => {
+    const record = req.body;
+    // await Todo.create(record);
+    // or
+    const newTodo = new Todo(record);
+    newTodo.save();
+    res.status(201).json(newTodo);
+});
+
+
+app.use((req, res) => {
+    res.status(404).json(`${req.originalUrl} not found`);
 });
 
 const start = async () => {
