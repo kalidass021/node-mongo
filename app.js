@@ -1,0 +1,63 @@
+import express from 'express';
+import dbConnect from './src/config/dbConnect.js';
+
+const app = express();
+
+app.get('/', (req, res) => {
+  console.log('api is working');
+  res.status(200).json({ message: 'API is working' });
+});
+
+const start = async () => {
+  try {
+    // connect to db
+    await dbConnect();
+    const port = 5000;
+    const server = app.listen(port, () => {
+      console.info(`Server is up and listening on port ${port}`);
+    });
+
+    return server;
+  } catch (err) {
+    console.error(`Startup Error: ${err}`);
+    process.exit(1);
+  }
+};
+
+start();
+
+/* 
+    What is database ?
+        * Database is efficient way of storing data which helps us query data faster in a bunch of data.
+
+
+    Why we need database ?
+        * Speed of querying
+        * Delete records individually through API access (Driver of the DB)
+    
+    Mongo DB ==> Mongoose ==> Queries (certain syntax way of extracting and put data)
+
+    ==> Database engine ==> It make sense of where the data we want is stored on the disk
+
+    ==> sends us relevant data back
+
+    * SQL vs NOSQL
+        * SQL:
+        * SQL = Structured Querying Language
+        * Database engine = what data we want through SQL
+        * Stored in RDBMS format (tables, rows, columns)
+        * Vertically Scalable (1 single computer)
+        * MySQL, Postgres
+        * 
+        * NoSQL:
+        * It is usually not RDBMS
+        * NoSQL = {"key": "value", "key2", "value2"}
+        * Horizontally scalable
+        * MongoDB, DynamoDB
+
+
+    Database => Collection(s) => Collection => Document => JSON-like => key-value pairs
+
+    mongoose => sits on top of mongo db native driver (mongodb) ====> provides rich developer experience
+
+*/

@@ -1,0 +1,16 @@
+{
+  "name": "node-mongo",
+  "version": "1.0.0",
+  "description": "basic app",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kalidass boopathi",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "mongoose": "^8.10.1"
+  }
+}
