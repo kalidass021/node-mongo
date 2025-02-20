@@ -13,17 +13,31 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/v1/todo', async (req, res) => {
-    const record = req.body;
-    // await Todo.create(record);
-    // or
+  const record = req.body;
+  // await Todo.create(record);
+  // or
+  try {
     const newTodo = new Todo(record);
-    newTodo.save();
+    await newTodo.save();
     res.status(201).json(newTodo);
+  } catch (err) {
+    console.error(`Error while saving the todo ${err.message}`);
+    res.status(400).json({ message: err.message });
+  }
 });
 
+app.get('/api/v1/todo', async (req, res) => {
+  try {
+    const records = await Todo.find();
+    res.status(200).json(records);
+  } catch (err) {
+    console.error(`Error while getting todos ${err.message}`);
+    res.status(400).json({ message: err.message });
+  }
+});
 
 app.use((req, res) => {
-    res.status(404).json(`${req.originalUrl} not found`);
+  res.status(404).json(`${req.originalUrl} not found`);
 });
 
 const start = async () => {

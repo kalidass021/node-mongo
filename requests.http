@@ -3,9 +3,17 @@ GET http://localhost:5000/
 
 ###
 
+// create record
 POST http://localhost:5000/api/v1/todo
 Content-Type: application/json
 
 {
-    "record": "test3"
+    "record": "test5"
 }
+
+
+###
+// get all the records
+GET http://localhost:5000/api/v1/todo
+
+###
