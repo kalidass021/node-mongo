@@ -12,6 +12,7 @@ app.get('/', (req, res) => {
   res.status(200).json({ message: 'API is working' });
 });
 
+// create record
 app.post('/api/v1/todo', async (req, res) => {
   const record = req.body;
   // await Todo.create(record);
@@ -26,12 +27,28 @@ app.post('/api/v1/todo', async (req, res) => {
   }
 });
 
+// get all todos
 app.get('/api/v1/todo', async (req, res) => {
   try {
-    const records = await Todo.find();
-    res.status(200).json(records);
+    const todos = await Todo.find();
+    res.status(200).json(todos);
   } catch (err) {
     console.error(`Error while getting todos ${err.message}`);
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// get specific todo
+app.get('/api/v1/todo/:record', async (req, res) => {
+  try {
+    const { record } = req.params;
+    const todo = await Todo.findOne({ record });
+    if (!todo) {
+      return res.status(404).json({message: `${record} not found in the database`});
+    }
+    res.status(200).json(todo);
+  } catch (err) {
+    console.error(`Error while getting the todo: ${err.message}`);
     res.status(400).json({ message: err.message });
   }
 });

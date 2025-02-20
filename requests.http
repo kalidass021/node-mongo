@@ -3,7 +3,7 @@ GET http://localhost:5000/
 
 ###
 
-// create record
+// create todo
 POST http://localhost:5000/api/v1/todo
 Content-Type: application/json
 
@@ -13,7 +13,9 @@ Content-Type: application/json
 
 
 ###
-// get all the records
+// get all the todos
 GET http://localhost:5000/api/v1/todo
 
 ###
+// get specific todo
+GET http://localhost:5000/api/v1/todo/test2
