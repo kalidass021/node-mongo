@@ -19,3 +19,13 @@ GET http://localhost:5000/api/v1/todo
 ###
 // get specific todo
 GET http://localhost:5000/api/v1/todo/test2
+
+
+###
+// update todo
+PATCH http://localhost:5000/api/v1/todo/test
+Content-Type: application/json
+
+{
+    "newRecord": "test1"
+}

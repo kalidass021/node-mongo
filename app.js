@@ -44,11 +44,35 @@ app.get('/api/v1/todo/:record', async (req, res) => {
     const { record } = req.params;
     const todo = await Todo.findOne({ record });
     if (!todo) {
-      return res.status(404).json({message: `${record} not found in the database`});
+      return res
+        .status(404)
+        .json({ message: `${record} not found in the database` });
     }
     res.status(200).json(todo);
   } catch (err) {
     console.error(`Error while getting the todo: ${err.message}`);
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// update todo
+app.patch('/api/v1/todo/:record', async (req, res) => {
+  try {
+    const { record: oldRecord } = req.params;
+    const { newRecord } = req.body;
+
+
+    const response = await Todo.updateOne({record: oldRecord}, {
+      $set: {
+        record: newRecord
+      }
+    });
+
+    res.status(201).json(response);
+
+
+  } catch (err) {
+    console.error(`Error while updating the todo ${err.message}`);
     res.status(400).json({ message: err.message });
   }
 });
