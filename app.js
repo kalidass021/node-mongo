@@ -61,18 +61,32 @@ app.patch('/api/v1/todo/:record', async (req, res) => {
     const { record: oldRecord } = req.params;
     const { newRecord } = req.body;
 
-
-    const response = await Todo.updateOne({record: oldRecord}, {
-      $set: {
-        record: newRecord
+    const response = await Todo.updateOne(
+      { record: oldRecord },
+      {
+        $set: {
+          record: newRecord,
+        },
       }
-    });
+    );
 
     res.status(201).json(response);
-
-
   } catch (err) {
     console.error(`Error while updating the todo ${err.message}`);
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// delete todo
+app.delete('/api/v1/todo/:record', async (req, res) => {
+  try {
+    const { record } = req.params;
+
+    const response = await Todo.deleteOne({record});
+
+    res.status(200).json(response);
+  } catch (err) {
+    console.error(`Error while deleting the record ${err.message}`);
     res.status(400).json({ message: err.message });
   }
 });
