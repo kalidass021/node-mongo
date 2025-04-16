@@ -63,6 +63,16 @@ Content-Type: application/json
 }
 
 ###
+// update user data
+PATCH http://localhost:5000/api/v1/users/user/67ff5defb86e41c58d34b4aa
+Content-Type: application/json
+
+{
+    "firstName": "updated firstName",
+    "lastName": "updated lastName"
+}
+
+###
 // delete user
 
 DELETE http://localhost:5000/api/v1/users/user/67ff5df8b86e41c58d34b4b2
