@@ -32,3 +32,18 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:5000/api/v1/todo/test2
+
+
+###
+
+// user routes
+
+POST http://localhost:5000/api/v1/users/signup
+Content-Type: application/json
+
+{
+    "firstName": "Kalidass",
+    "lastName": "Boopathi",
+    "email": "kalidass@email.com",
+    "password": "kalidass123"
+}

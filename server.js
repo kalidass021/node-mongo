@@ -1,11 +1,14 @@
 import express from 'express';
 import dbConnect from './src/config/dbConnect.js';
 import Todo from './src/models/Todo.js';
+import userRoutes from './routes/userRoutes.js';
 
 const app = express();
 
 // body parser
 app.use(express.json());
+
+app.use('/api/v1/users', userRoutes);
 
 app.get('/', (req, res) => {
   console.log('api is working');
@@ -82,7 +85,7 @@ app.delete('/api/v1/todo/:record', async (req, res) => {
   try {
     const { record } = req.params;
 
-    const response = await Todo.deleteOne({record});
+    const response = await Todo.deleteOne({ record });
 
     res.status(200).json(response);
   } catch (err) {
@@ -93,6 +96,20 @@ app.delete('/api/v1/todo/:record', async (req, res) => {
 
 app.use((req, res) => {
   res.status(404).json(`${req.originalUrl} not found`);
+});
+
+app.use((err, req, res, next) => {
+  // middleware to handle the erros
+  err.stack && console.error(err.stack);
+  const statusCode = err.statusCode || 500;
+  const errorResponse = {
+    success: false,
+    statusCode,
+    message: err.message || err.error || 'Internal server error',
+    ...(err.stack && { stack: err.stack }),
+  };
+
+  res.status(statusCode).json(errorResponse);
 });
 
 const start = async () => {
