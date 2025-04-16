@@ -49,7 +49,7 @@ Content-Type: application/json
 }
 
 ###
-
+// fetch all users
 GET http://localhost:5000/api/v1/users/all
 
 
@@ -61,3 +61,8 @@ Content-Type: application/json
 {
     "email": "aliyaheaney@email.com"
 }
+
+###
+// delete user
+
+DELETE http://localhost:5000/api/v1/users/user/67ff5df8b86e41c58d34b4b2
