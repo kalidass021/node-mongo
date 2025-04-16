@@ -31,9 +31,13 @@ export const getSpecificUser = async (req, res, next) => {
       return res.status(400).json({ message: 'Email is required' });
     }
 
-    const user = await User.find({ email }).select('-password');
+    const users = await User.find({ email }).select('-password');
 
-    res.status(200).json(user);
+    if (!users.length) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(users);
   } catch (err) {
     console.error(
       `Error while fetching the specific user data: ${err?.message} ?? err`
