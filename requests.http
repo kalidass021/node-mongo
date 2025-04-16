@@ -42,8 +42,22 @@ POST http://localhost:5000/api/v1/users/signup
 Content-Type: application/json
 
 {
-    "firstName": "Kalidass",
-    "lastName": "Boopathi",
-    "email": "kalidass@email.com",
-    "password": "kalidass123"
+    "firstName": "Brian",
+    "lastName": "Cormier",
+    "email": "testuser@email.com",
+    "password": "testuser123"
+}
+
+###
+
+GET http://localhost:5000/api/v1/users/all
+
+
+### 
+// get specific user
+GET http://localhost:5000/api/v1/users/user
+Content-Type: application/json
+
+{
+    "email": "aliyaheaney@email.com"
 }

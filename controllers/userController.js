@@ -1,4 +1,4 @@
-import User from "../src/models/User.js";
+import User from '../src/models/User.js';
 
 export const signup = async (req, res, next) => {
   try {
@@ -10,5 +10,33 @@ export const signup = async (req, res, next) => {
   } catch (err) {
     console.error(`Error while signup ${err?.message ?? err}`);
     next(err);
+  }
+};
+
+export const fetchAllUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({});
+    res.status(200).json(users);
+  } catch (err) {
+    console.error(`Error while fetching all users: ${err?.message ?? err}`);
+    next(err);
+  }
+};
+
+export const getSpecificUser = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: 'Email is required' });
+    }
+
+    const user = await User.find({ email }).select('-password');
+
+    res.status(200).json(user);
+  } catch (err) {
+    console.error(
+      `Error while fetching the specific user data: ${err?.message} ?? err`
+    );
   }
 };
